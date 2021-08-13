@@ -520,7 +520,7 @@ statusCheck() {
 boot()
 {
 	echo "Cloning gitlab repo..."
-	git clone https://gitlab.redox-os.org/redox-os/redox.git --origin upstream --recursive
+	git clone https://gitlab.redox-os.org/redox-os/redox.git --origin upstream --recursive --depth=1
 	echo "Cleaning up..."
 	rm bootstrap.sh
 	echo
@@ -547,7 +547,7 @@ if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
 	usage
 elif [ "$1" == "-u" ]; then
 	git pull upstream master
-	git submodule update --recursive --init
+	git submodule update --recursive --init --depth=1
 	rustup update nightly
 	exit
 elif [ "$1" == "-s" ]; then
@@ -580,7 +580,7 @@ cargoInstall xargo 0.3.20
 
 if [ "$update" == "true" ]; then
 	git pull upstream master
-	git submodule update --recursive --init
+	git submodule update --recursive --init --depth=1
 	rustup update nightly
 	exit
 fi
