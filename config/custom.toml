@@ -2,12 +2,11 @@
 
 # General settings
 [general]
-# Do not prompt if settings are not defined
-prompt = false
+# Prompt if settings are not defined
+prompt = true
 
 # Package settings
 [packages]
-audiod = {}
 ca-certificates = {}
 contain = {}
 coreutils = {}
@@ -16,7 +15,6 @@ diffutils = {}
 drivers = {}
 extrautils = {}
 findutils = {}
-gdbserver = {}
 gnu-make = {}
 installer = {}
 ion = {}
@@ -24,33 +22,29 @@ ipcd = {}
 logd = {}
 netdb = {}
 netstack = {}
-# netsurf = {}
 netutils = {}
-orbdata = {}
-orbital = {}
-orbterm = {}
-orbutils = {}
 pkgutils = {}
 ptyd = {}
 redoxfs = {}
 resist = {}
 smith = {}
-strace = {}
 userutils = {}
 uutils = {}
-vim = {}
 
 # User settings
 [users.root]
-password = "password"
+password = "root"
 uid = 0
 gid = 0
 name = "root"
 home = "/root"
 
-[users.user]
-# Password is unset
-password = ""
+[users.gupta]
+password = "gupta"
+uid = 1000
+gid = 1000
+name = "gupta"
+home = "/home/gupta"
 
 [[files]]
 path = "/etc/init.d/00_base"
@@ -70,16 +64,9 @@ dhcpd -b
 """
 
 [[files]]
-path = "/etc/init.d/20_orbital"
-data = """
-audiod
-orbital display:3/activate orblogin launcher
-"""
-
-[[files]]
 path = "/etc/init.d/30_console"
 data = """
-getty display:2
+getty display:2/activate
 getty debug: -J
 """
 
