@@ -4,11 +4,10 @@ build/filesystem.bin: filesystem.toml build/bootloader build/kernel prefix
 	cargo build --manifest-path redoxfs/Cargo.toml --release
 	-$(FUMOUNT) build/filesystem/ || true
 	rm -rf $@  $@.partial build/filesystem/
-	dd if=/dev/zero of=$@.partial bs=1048576 count="$(FILESYSTEM_SIZE)"
-	cargo run --manifest-path redoxfs/Cargo.toml --release --bin redoxfs-mkfs $@.partial
+	dd if=/dev/zero of=$@.partial bs=1M count="$(FILESYSTEM_SIZE)"
+	redoxfs/target/release/redoxfs-mkfs $@.partial
 	mkdir -p build/filesystem/
-	redoxfs/target/release/redoxfs $@.partial build/filesystem/
-	sleep 2
+	redoxfs/target/release/redoxfs-mount $@.partial build/filesystem/
 	pgrep redoxfs
 	cp $< build/filesystem/filesystem.toml
 	cp build/bootloader build/filesystem/bootloader
